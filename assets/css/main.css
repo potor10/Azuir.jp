@@ -21,7 +21,3 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
-
-wrapper {
-  background-image: url(../../images/miku_1.jpg);
-}
