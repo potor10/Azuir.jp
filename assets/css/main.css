@@ -75,6 +75,30 @@ footer, header, hgroup, menu, nav, section {
 
 #menu a:hover {
   color: teal;
+  opacity: .2;
   text-shadow: 1px 1px 2px pink;
+}
+
+a:active,a:link,a:visited {
+    color: #000;
+    text-decoration: none;
+    outline: 0
+}
+
+#loading {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 1000
+}
+
+#loading p {
+    display: block;
+    width: calc(30px + 3vmin);
+    height: 2.5px;
+    background: #000;
+    -webkit-animation: animLoadingTop .3s ease-in-out infinite alternate;
+    animation: animLoadingTop .3s ease-in-out infinite alternate
 }
 
