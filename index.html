@@ -27,7 +27,7 @@
         width: 100%;
         height: 100%;
         position: fixed;
-        z-index: 1;
+        z-index: 0;
         top: 0;
         overflow: hidden;
       }
@@ -48,19 +48,24 @@
     <script src="https://cdn.babylonjs.com/gui/babylon.gui.min.js"></script>
     <script src="https://cdn.babylonjs.com/proceduralTexturesLibrary/babylonjs.proceduralTextures.min.js"></script>
     <script src="https://cdn.babylonjs.com/serializers/babylonjs.serializers.min.js"></script>
+    
+    <!-- P5.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.sound.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.dom.min.js"></script>
   </head>
   
   <body>
-    <div id=render>
+    <div id="render">
       <canvas id="canvas" touch-action="none"></canvas> <!--touch-action="none" for best results from PEP -->
       <script src="assets/js/index.js" async></script>
     </div>
     <div id=menu>
-      <h1 style="text-align: center; position: absolute; top: 50%; bottom: 50%; width: 100%;">Hello World!</h1>
+      <h1 style="text-align: center; position: absolute; top: 0%; bottom: 100%; width: 100%;">Hello World!</h1>
       <h1>AZUIR</h1>
-      <div id=wow>
-        <h2 id=text1>你好</h2>
-        <h2 id=text2>卡洛斯马托斯爱小熊维尼</h2>
+      <div id="wow">
+        <h2 id="text1">你好</h2>
+        <h2 id="text2">卡洛斯马托斯爱小熊维尼</h2>
       </div>
       <p><a href="music/">MUSIC</a></p>
       <p><a href="content/">CONTENT</a></p>
@@ -69,6 +74,13 @@
       <p><a href="https://twitter.com/azuir_" target=_blank>TWITTER</a></p>
       <p><a href="doesnt_exist/">DISCOGRAPHY</a></p>
     </div>
-    <div id=loading></div>
+    <div id="loading">
+      <div class="spinner"></div>
+      <div class="spinner loader"></div>
+      <p>loading content...</p>
+    </div>
+    <audio src="./assets/audio/elohellmusic.mp3" type="audio/mp3" id="indexSong">
+      Error, Your Webpage Doesn't Display Audio
+    </audio>
   </body>
 </html>
