@@ -131,6 +131,7 @@
     border-bottom-color: transparent;
   }
   20% {
+    transform: translate3d(-50%, -50%, 0);
     width: 20px;
     height: 0px;
     border-left-color: transparent;
@@ -139,6 +140,7 @@
     border-bottom-color: transparent;
   }
   40% {
+    transform: translate3d(-50%, -50%, 0);
     border-radius: 10%;
     width: 20px;
     height: 20px;
@@ -148,6 +150,7 @@
     border-bottom-color: transparent;
   }
   55% {
+    transform: translate3d(-50%, -50%, 0);
     border-radius: 10%;
     width: 20px;
     height: 20px;
@@ -157,6 +160,7 @@
     border-bottom-color: transparent;
   }
   60% {
+    transform: translate3d(-50%, -50%, 0);
     width: 20px;
     height: 20px;
     border-left-color: transparent;
@@ -165,6 +169,7 @@
     border-bottom-color: transparent;
   }
   80% {
+    transform: translate3d(-50%, -50%, 0);
     width: 20px;
     height: 20px;
     border-left-color: black;
@@ -173,6 +178,7 @@
     border-bottom-color: black;
   }
   90% {
+    transform: translate3d(-50%, -50%, 0);
     border-radius: 50%;
     width: 35px;
     height: 35px;
@@ -402,6 +408,11 @@
 .loader {
   transition: opacity linear 0.1s;
   
+  -webkit-animation: 3s linear infinite loader;
+  -moz-animation: 3s linear infinite loader;
+  -o-animation: 3s linear infinite loader;
+  animation: 3s linear infinite loader;
+  
   border: solid 3px #eee;
   border-radius: 50%;
   content: "";
@@ -411,14 +422,11 @@
   top: 50%;
   opacity: inherit;
   position: absolute;
+  
   border-top-color: transparent;
   border-bottom-color: transparent;
   border-right-color: transparent;
   border-left-color: transparent;
-  -webkit-animation: 3s linear infinite loader;
-  -moz-animation: 3s linear infinite loader;
-  -o-animation: 3s linear infinite loader;
-  animation: 3s linear infinite loader;
   
   -webkit-transform: translate(-50%, -50%);
   -moz-transform: translate(-50%, -50%);

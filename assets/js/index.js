@@ -29,7 +29,7 @@ var createScene = function () {
     console.log("currentToLast: " + currentToLast);
 
     var deltaZ = currentToLast.x;
-    var deltaX = currentToLast.y;
+    var deltaX = 0 * currentToLast.y;
 
     var cameraPosition = camera.position;
     console.log("cameraPosition: "+ cameraPosition);
