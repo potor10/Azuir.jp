@@ -400,13 +400,23 @@
 }
 
 .loader {
-  width: 0%;
+  transition: opacity linear 0.1s;
+  
+  border: solid 3px #eee;
+  border-radius: 50%;
+  content: "";
+  height: 40px;
+  width: 40px;
+  left: 50%;
+  top: 50%;
+  opacity: inherit;
+  position: absolute;
   border-top-color: transparent;
   border-bottom-color: transparent;
   border-right-color: transparent;
   border-left-color: transparent;
-  -webkit-animation: 2s linear infinite loader;
-  -moz-animation: 2s linear infinite loader;
-  -o-animation: 2s linear infinite loader;
-  animation: 2s linear infinite loader;
+  -webkit-animation: 3s linear infinite loader;
+  -moz-animation: 3s linear infinite loader;
+  -o-animation: 3s linear infinite loader;
+  animation: 3s linear infinite loader;
 }
