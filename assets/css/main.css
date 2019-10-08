@@ -1,3 +1,4 @@
+/**
 html, body, div, span, applet, object,
 iframe, h1, h2, h3, h4, h5, h6, p, blockquote,
 pre, a, abbr, acronym, address, big, cite,
@@ -21,3 +22,59 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
+
+**/
+
+#menu {
+  position: relative;
+  padding-left: 10%;
+  top:0;
+  z-index: 2;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+#wow #text2 {
+  display: none;
+}
+
+#wow:hover #text2 {
+  display: block;
+}
+
+#wow:hover #text1 {
+  display: none;
+}
+
+#menu h1{
+  font-weight:400;
+  font-size:calc(1.8rem + 3.6vmin);
+  margin-bottom:1vh
+}
+
+#menu h2{
+  font-weight:400;
+  font-size:calc(.7rem + .9vmin);
+  margin-bottom:6vh;
+  letter-spacing:.22rem
+}
+
+#menu p{
+  margin-bottom:4vh;
+  font-size:calc(.5rem + 3.6vmin)
+}
+
+#menu a{
+  color: inherit;
+  text-decoration: inherit;
+}
+
+#menu a:hover {
+  color: teal;
+  text-shadow: 1px 1px 2px pink;
+}
+
