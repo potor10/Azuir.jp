@@ -102,3 +102,7 @@ a:active,a:link,a:visited {
     animation: animLoadingTop .3s ease-in-out infinite alternate
 }
 
+a,body,html {
+    -webkit-tap-highlight-color: transparent
+}
+
