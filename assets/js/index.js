@@ -76,7 +76,7 @@ var createScene = function() {
 
     movein_keys.push({
         frame: 3 * frameRate,
-        value: new BABYLON.Vector3(0, 10, 50)
+        value: new BABYLON.Vector3(0, 10, 10)
     });
 
     movein.setKeys(movein_keys);

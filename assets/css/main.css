@@ -26,6 +26,7 @@ footer, header, hgroup, menu, nav, section {
 **/
 
 #menu {
+  font-family: "Megrim", cursive;
   position: relative;
   top:0;
   z-index: 2;
