@@ -24,10 +24,12 @@ function loadPage() {
     // Check for page successful load
     var loadCheck = setInterval(function() { 
         if (loadbar.value >= 100) {
-        clearInterval(loadCheck);
-        document.getElementById('loader').style.opacity = 0.2;
-        document.getElementById("loadedText").style.display = "block";
-        document.onclick = function(){showPage()};}
+            clearInterval(loadCheck);
+            document.getElementById('loader').style.opacity = 0.2;
+            document.getElementById("loadedText").style.display = "block";
+            document.ontouchstart = function(){showPage();}
+            document.onclick = function(){showPage();}
+        }
     }, 1000);
 }
 
@@ -35,6 +37,7 @@ function showPage() {
     document.getElementById("loading").style.display = "none";
     document.getElementById("content").style.opacity = 1;
     document.onclick = function(){return false;}
+    document.ontouchstart = function(){return false;}
     startAnimation();
 }
 
