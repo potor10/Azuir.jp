@@ -25,6 +25,7 @@ function loadPage() {
     var loadCheck = setInterval(function() { 
         if (loadbar.value >= 100) {
             clearInterval(loadCheck);
+            loadbar.set(100);
             document.getElementById('loader').style.opacity = 0.2;
             document.getElementById("loadedText").style.display = "block";
             document.ontouchstart = function(){showPage();}
@@ -35,10 +36,13 @@ function loadPage() {
 
 function showPage() {
     document.getElementById("loading").style.display = "none";
-    document.getElementById("content").style.opacity = 1;
-    document.onclick = function(){return false;}
-    document.ontouchstart = function(){return false;}
+    document.getElementById("canvas").style.opacity = 1;
+    document.getElementById("menu").style.display = "block";
     startAnimation();
+
+    // Reset onclick functions to nothing
+    document.ontouchstart = function(){}
+    document.onclick = function(){}
 }
 
 function pullCDN() {
@@ -61,6 +65,7 @@ function pullCDN() {
         var s = document.createElement("script");
         s.onload = function() {
             loadbar.set(loadbar.value + incAmt);
+            console.log(loadbar.value);
         };
         s.src = url[i];
         s.async = false;

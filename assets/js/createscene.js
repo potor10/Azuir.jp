@@ -1,9 +1,17 @@
-// script importation
+/** 
+ * Script importation dynamic terrain
+ * This section will pull from babylon JS CDN and add dynamic terrain
+ */
 var url = "https://cdn.rawgit.com/BabylonJS/Extensions/master/DynamicTerrain/dist/babylon.dynamicTerrain.min.js";
 var s = document.createElement("script");
 s.src = url;
 document.head.appendChild(s);
 
+
+
+/** 
+ * Creating default scene on the canvas using babylon.js engine
+ */
 var canvas = document.getElementById("canvas"); // Get the canvas element 
 var engine = new BABYLON.Engine(canvas, true); // Generate the BABYLON 3D engine
 
@@ -31,6 +39,11 @@ camera.attachControl(canvas, true);
 var inputManager = camera.inputs;
 inputManager.clear();
 
+
+
+/** 
+ * Mouse location tracker for real-time visual effects
+ */
 var lastPosition = new BABYLON.Vector3(0.5, 0.5, 0); 
 
 var handlePosition = ()=>{
@@ -67,7 +80,10 @@ window.addEventListener("pointermove", function (event) {
   console.log(isWire);
 });
 
-// Animation Function
+
+/** 
+ * Standard animation for permanent scrolling across the terrain
+ */
 var startAnimation = function() {
     // Enable Animation
     var frameRate = 20;
@@ -114,7 +130,9 @@ var startAnimation = function() {
     scene.beginDirectAnimation(camera, [movein], 0, 25 * frameRate, true);
 }
 
-// Draw Axis onto canvas
+/** 
+ * Temporary axis for better visibility of directions
+ */
 var showAxis = function(size) {
 var makeTextPlane = function(text, color, size) {
 var dynamicTexture = new BABYLON.DynamicTexture("DynamicTexture", 50, scene, true);
@@ -153,11 +171,14 @@ zChar.position = new BABYLON.Vector3(0, 0.05 * size, 0.9 * size);
 
 showAxis(100);
 
-// Map data creation
-// The map is a flat array of successive 3D coordinates (x, y, z).
-// It's defined by a number of points on its width : mapSubX
-// and a number of points on its height : mapSubZ
 
+
+/** 
+ * Map data creation
+ * The map is a flat array of successive 3D coordinates (x, y, z).
+ * It's defined by a number of points on its width : mapSubX
+ * and a number of points on its height : mapSubZ
+ */
 var mapSubX = 100;             // point number on X axis
 var mapSubZ = 1000;              // point number on Z axis
 var seed = 0.3;                 // seed
@@ -218,10 +239,7 @@ s.onload = function() {
   
     var terrainMat2 = new BABYLON.StandardMaterial("tm", scene);
     terrainMat2.diffuseColor = BABYLON.Color3.Black();
-
     terrainMat2.wireframe = true;
-
-
   
     var terrainMat = new BABYLON.MultiMaterial("multi", scene);
     terrainMat.subMaterials.push(terrainMat1);
@@ -236,6 +254,92 @@ s.onload = function() {
     terrain.mesh.subMeshes.push(new BABYLON.SubMesh(0, 0, verticesCount, 2, 140000, terrain.mesh));
     terrain.mesh.subMeshes.push(new BABYLON.SubMesh(1, 0, verticesCount, 0, 140000, terrain.mesh));
 }   // onload closing bracket
+
+
+
+/**
+ * PostProcessing used for visual RGB effects on hover on a link
+ * Credit to https://www.shadertoy.com/view/4t23Rc under MIT License
+ */
+var rgbGlitchFX = 
+`varying vec2 vUV;
+uniform sampler2D textureSampler;
+uniform vec2 screenSize;
+
+uniform sampler2D noiseRef0;
+uniform sampler2D noiseRef1;
+
+uniform float time; 
+
+#define AMPLITUDE 0.05
+#define SPEED 10.0
+
+vec4 rgbShift( in vec2 p , in vec4 shift) {
+    shift *= 2.0*shift.w - 1.0;
+    vec2 rs = vec2(shift.x,-shift.y);
+    vec2 gs = vec2(shift.y,-shift.z);
+    vec2 bs = vec2(shift.z,-shift.x);    
+    float r = texture2D(textureSampler, p+rs, 0.0).x;
+    float g = texture2D(textureSampler, p+gs, 0.0).y;
+    float b = texture2D(textureSampler, p+bs, 0.0).z;
+    return vec4(r,g,b,1.0);
+}
+vec4 noise( in vec2 p ) {
+    return texture2D(noiseRef0, p, 0.0);
+}
+
+vec4 vec4pow( in vec4 v, in float p ) {
+    return vec4(pow(v.x,p),pow(v.y,p),pow(v.z,p),v.w); 
+}
+void main(void){ 
+    vec2 p = vUV;
+    vec4 c = vec4(0.0,0.0,0.0,1.0);
+    vec4 shift = vec4pow(noise(vec2(SPEED*time,2.0*SPEED*time/25.0 )),8.0)
+        		*vec4(AMPLITUDE,AMPLITUDE,AMPLITUDE,1.0);
+    c += rgbShift(p, shift);
+   gl_FragColor = c;
+}
+`;
+
+BABYLON.Effect.ShadersStore['rgbGlitchEffectFragmentShader'] = rgbGlitchFX;
+
+var time = 0;
+var rate = 0.01;
+var isGlitch = false;
+
+scene.registerBeforeRender(function () {
+    if (isGlitch) {
+        time+=scene.getAnimationRatio()*rate;
+    }
+    else {
+        time = 0;
+    }
+});
+
+var postProcess = new BABYLON.PostProcess("rgbGlitchEffect", "rgbGlitchEffect", ["time", "screenSize"], ["noiseRef0", "noiseRef1"], 1, camera);
+var noiseTexture0 = new BABYLON.Texture('./assets/textures/grass.jpg', scene);
+var noiseTexture1 = new BABYLON.Texture('./assets/textures/ground.jpg', scene);
+
+postProcess.onApply = function (effect) {
+    effect.setVector2("screenSize", new BABYLON.Vector2(postProcess.width, postProcess.height));
+    effect.setFloat('time', time); //this is the problematic line
+    effect.setTexture('noiseRef0', noiseTexture0);
+    effect.setTexture('noiseRef1', noiseTexture1);
+};  
+
+var postProcess = function() { 
+    if (!isGlitch) {
+        isGlitch = true;
+
+        setTimeout(function(){ 
+            isGlitch = false;
+        }, 300);
+    }
+}
+
+/**
+ * Necessary loops for proper rendering
+ */
 
 // Register a render loop to repeatedly render the scene
 engine.runRenderLoop(function () { 
