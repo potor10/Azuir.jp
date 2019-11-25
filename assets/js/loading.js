@@ -57,7 +57,8 @@ function pullCDN() {
         "https://cdn.babylonjs.com/proceduralTexturesLibrary/babylonjs.proceduralTextures.min.js",
         "https://cdn.babylonjs.com/serializers/babylonjs.serializers.min.js",
         "assets/js/perlinnoise.js",
-        "assets/js/createscene.js"
+        "assets/js/createscene.js",
+        "assets/js/index.js"
     ];
     var incAmt = 100 / url.length;
 

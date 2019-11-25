@@ -61,7 +61,7 @@ html, body {
   font-family: "megrim", cursive;
   position: relative;
   top: 20px;
-  z-index: 2;
+  z-index: 1;
   display: none;
 }
 
@@ -87,9 +87,9 @@ html, body {
 }
 
 a:active,a:link,a:visited {
-    color: #000;
-    text-decoration: none;
-    outline: 0;
+  color: #000;
+  text-decoration: none;
+  outline: 0;
 }
 
 /* Alternating txt change on hover */
@@ -103,4 +103,59 @@ a:active,a:link,a:visited {
 
 #alternatingTxt:hover #text1 {
   display: none;
+}
+
+/* information CSS */
+#info {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  overflow-y: scroll;
+  background: black;
+  z-index: 2;
+  display: none;
+  animation: 1s bounce;
+}
+
+#info.bounceOut {
+  transition: 1s;
+  transform: translateX(-100%);
+}
+
+/* Information Exit Button */
+#closeInfo {
+  position: absolute;
+  height: 40px;
+  width: 50px;
+  top: 20px;
+  right: 20px;
+  border: 2px solid gray;
+  border-radius: 5px;
+  text-align: center;
+  transition: 0.5s;
+}
+
+#closeInfo:hover {
+  background: gray;
+  transition: 1s;
+}
+
+.infoTxt {
+  color: white;
+  text-align: center;
+  font-size: 5em;
+  display: none;
+  transition: 1s;
+}
+
+/* SideWindow CSS Animation */
+@keyframes bounce {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
 }

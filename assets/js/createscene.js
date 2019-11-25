@@ -46,7 +46,7 @@ inputManager.clear();
  */
 var lastPosition = new BABYLON.Vector3(0.5, 0.5, 0); 
 
-var handlePosition = ()=>{
+var handlePosition = function() { 
   var xPos = (event.pageX - window.innerWidth/2) / window.innerWidth;
   var yPos = (event.pageY - window.innerHeight/2) / window.innerHeight;
   var curentPosition = new BABYLON.Vector3(xPos, yPos, 0);
