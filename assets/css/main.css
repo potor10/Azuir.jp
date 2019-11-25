@@ -116,6 +116,7 @@ a:active,a:link,a:visited {
   background: black;
   z-index: 2;
   display: none;
+  -webkit-animation: 1s bounce;
   animation: 1s bounce;
 }
 
@@ -131,14 +132,15 @@ a:active,a:link,a:visited {
   width: 50px;
   top: 20px;
   right: 20px;
-  border: 2px solid gray;
-  border-radius: 5px;
   text-align: center;
   transition: 0.5s;
+  color: white;
+  background: transparent;
+  font-family: "megrim";
 }
 
 #closeInfo:hover {
-  background: gray;
+  background: rgba(255, 255, 255, 0.6);
   transition: 1s;
 }
 
@@ -152,6 +154,15 @@ a:active,a:link,a:visited {
 
 /* SideWindow CSS Animation */
 @keyframes bounce {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+
+@-webkit-keyframes bounce {
   from {
     transform: translateX(100%);
   }

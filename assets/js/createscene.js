@@ -88,29 +88,6 @@ var startAnimation = function() {
     // Enable Animation
     var frameRate = 20;
     
-    /**
-    var rotate = new BABYLON.Animation("rotate", "rotation.y", frameRate, BABYLON.Animation.ANIMATIONTYPE_FLOAT, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT);
-	
-	var rotate_keys = []; 
-
-    rotate_keys.push({
-        frame: 0,
-        value: 0
-    });
-
-    rotate_keys.push({
-        frame: 9 * frameRate,
-        value: 0
-    });
-
-    rotate_keys.push({
-        frame: 14 * frameRate,
-        value: Math. PI
-    });
-
-    rotate.setKeys(rotate_keys);
-    */
-    
     var movein = new BABYLON.Animation("movein", "position", frameRate, BABYLON.Animation.ANIMATIONTYPE_VECTOR3, BABYLON.Animation.ANIMATIONLOOPMODE_RELATIVE);
 	
 	var movein_keys = []; 
@@ -122,7 +99,7 @@ var startAnimation = function() {
 
     movein_keys.push({
         frame: 3 * frameRate,
-        value: new BABYLON.Vector3(0, 10, 10)
+        value: new BABYLON.Vector3(0, 10, 40)
     });
 
     movein.setKeys(movein_keys);
@@ -169,8 +146,7 @@ var zChar = makeTextPlane("Z", "blue", size / 10);
 zChar.position = new BABYLON.Vector3(0, 0.05 * size, 0.9 * size);
 };
 
-showAxis(100);
-
+//showAxis(100);
 
 
 /** 
@@ -182,8 +158,8 @@ showAxis(100);
 var mapSubX = 100;             // point number on X axis
 var mapSubZ = 1000;              // point number on Z axis
 var seed = 0.3;                 // seed
-var noiseScale = 0.03;         // noise frequency
-var elevationScale = 6.0;
+var noiseScale = 0.06;         // noise frequency
+var elevationScale = 14.0;
 noise.seed(seed);
 var mapData = new Float32Array(mapSubX * mapSubZ * 3); // 3 float values per point : x, y and z
 
@@ -194,7 +170,12 @@ for (var l = 0; l < mapSubZ; l++) {
         var x = (w - mapSubX * 0.5) * 2.0;
         var z = (l - mapSubZ * 0.5) * 2.0;
         var y = noise.simplex2(x * noiseScale, z * noiseScale);
-        y *= (0.5 + y) * y * elevationScale;   // let's increase a bit the noise computed altitude
+        if (Math.abs(x) > 6) {
+            y *= (0.5 + y) * y * elevationScale;   // let's increase a bit the noise computed altitude
+        }
+        else {
+            y *= (0.5 + y) * y * (elevationScale / (7 - Math.abs(x)));
+        }
                
         mapData[3 *(l * mapSubX + w)] = x;
         mapData[3 * (l * mapSubX + w) + 1] = y;
@@ -229,17 +210,16 @@ s.onload = function() {
     }
     
     var terrain = new BABYLON.DynamicTerrain("t", params, scene);
-    /*
-    terrain.mapSubX = 10;
-    terrain.mapSubZ = 200;
-    */
-    var terrainMat1 = new BABYLON.StandardMaterial("tm", scene);
-    terrainMat1.diffuseColor = BABYLON.Color3.Black();
+
+    var terrainMat1 = new BABYLON.CustomMaterial("tm", scene);
+    terrainMat1.diffuseColor = BABYLON.Color3.White();
     terrainMat1.wireframe = false;
+    terrainMat1.alpha = 0.2;
   
     var terrainMat2 = new BABYLON.StandardMaterial("tm", scene);
     terrainMat2.diffuseColor = BABYLON.Color3.Black();
     terrainMat2.wireframe = true;
+    terrainMat2.alpha = 0.3;
   
     var terrainMat = new BABYLON.MultiMaterial("multi", scene);
     terrainMat.subMaterials.push(terrainMat1);
@@ -248,11 +228,12 @@ s.onload = function() {
     //terrainMaterial.alpha = 0.8;
     terrain.mesh.material = terrainMat;
     var verticesCount = terrain.mesh.getTotalVertices();
-    console.log(verticesCount);
-    
+    var indicesCount = terrain.mesh.getTotalIndices();
+
     terrain.mesh.subMeshes = [];
-    terrain.mesh.subMeshes.push(new BABYLON.SubMesh(0, 0, verticesCount, 2, 140000, terrain.mesh));
-    terrain.mesh.subMeshes.push(new BABYLON.SubMesh(1, 0, verticesCount, 0, 140000, terrain.mesh));
+
+    //terrain.mesh.subMeshes.push(new BABYLON.SubMesh(0, 1, verticesCount, 120000, 20000, terrain.mesh));
+    terrain.mesh.subMeshes.push(new BABYLON.SubMesh(1, 0, verticesCount, 120000, 20000, terrain.mesh));
 }   // onload closing bracket
 
 

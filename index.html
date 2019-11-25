@@ -33,32 +33,31 @@
         <h2 id="text1">おはようございます</h2>
         <h2 id="text2">ようこそ</h2>
       </div>
-      <p><a class="glitch" data-text="MUSIC" href="music/" onmouseover="postProcess()">MUSIC</a></p>
+      <p><a class="glitch" data-text="MUSIC" href="music/" onmouseover="postProcess(), setBox()">MUSIC</a></p>
       <p><a class="glitch" data-text="CONTENT" href="content/" onmouseover="postProcess()">CONTENT</a></p>
       <p><a class="glitch" data-text="ABOUT" onclick="openAbout()" href="#" onmouseover="postProcess()">ABOUT</a></p>
       <p><a class="glitch" data-text="SOUNDCLOUD" href="https://soundcloud.com/azuir" target="_blank" onmouseover="postProcess()">SOUNDCLOUD</a></p>
       <p><a class="glitch" data-text="TWITTER" href="https://twitter.com/azuir_" target="_blank" onmouseover="postProcess()">TWITTER</a></p>
-      <p><a class="glitch" data-text="DISCOGRAPHY" href="doesnt_exist/" onmouseover="postProcess()">DISCOGRAPHY</a></p>
+      <p><a class="glitch" data-text="DISCOGRAPHY" onclick="openDisco()" href="#" onmouseover="postProcess()">DISCOGRAPHY</a></p>
     </div>
     <div id="loading">
       <div id="loader" data-type="fill" data-fill-dir="btt" style="width:100%;height:100px" data-img="assets/images/loadingDuck.gif" ></div>
       <p id="loadedText">click to continue</p>
     </div>
     <div id="info">
-      <button id="closeInfo" onclick="closeInfo()">X</button>
+      <button id="closeInfo" onclick="closeInfo()">Back</button>
       <div id="aboutText" class="infoTxt fade-in">
-        <p>blah blah I hate life</p>
-        <p>blah blah I hate life</p>
-        <p>blah blah I hate life</p>
-        <p>blah blah I hate life</p>
-        <p>blah blah I hate life</p>
-        <p>blah blah I hate life</p>
-        <p>blah blah I hate life</p>
-        <p>blah blah I hate life</p>
-        <p>blah blah I hate life</p>
-        <p>blah blah I hate life</p>
-        <p>blah blah I hate life</p>
+        <p>
+          Hey, it's me Azuir! <br />
+          Welcome to my website!
+        </p>
       </div>
+      <div id="discoText" class="infoTxt fade-in">
+          <p>
+            Hey, it's me Azuir! <br />
+            Welcome to my discography!
+          </p>
+        </div>
     </div>
     <script type="text/javascript" src="assets/js/loading.js"></script>
   </body>
