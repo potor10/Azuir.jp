@@ -305,18 +305,13 @@ BABYLON.Effect.ShadersStore['rgbGlitchEffectFragmentShader'] = rgbGlitchFX;
 
 var time = 0;
 var rate = 0.01;
-var isGlitch = false;
 
 scene.registerBeforeRender(function () {
-    if (isGlitch) {
-        time+=scene.getAnimationRatio()*rate;
-    }
-    else {
-        time = 0;
-    }
+    time+=scene.getAnimationRatio()*rate;
 });
 
 var postProcess = new BABYLON.PostProcess("rgbGlitchEffect", "rgbGlitchEffect", ["time", "screenSize"], ["noiseRef0", "noiseRef1"], 1, camera);
+scene.postProcessesEnabled = false;
 var noiseTexture0 = new BABYLON.Texture('./assets/textures/grass.jpg', scene);
 var noiseTexture1 = new BABYLON.Texture('./assets/textures/ground.jpg', scene);
 
@@ -328,14 +323,15 @@ postProcess.onApply = function (effect) {
 };  
 
 var postProcess = function() { 
-    if (!isGlitch) {
-        isGlitch = true;
+    if (scene.postProcessesEnabled == false) {
+        scene.postProcessesEnabled = true;
 
         setTimeout(function(){ 
-            isGlitch = false;
+            scene.postProcessesEnabled = false;
         }, 300);
     }
 }
+
 
 /**
  * Necessary loops for proper rendering
